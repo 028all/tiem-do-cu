@@ -277,3 +277,4 @@ a{color:inherit;text-decoration:none;}
   .header__search{width:100%;}
   .footer__inner{flex-direction:column;gap:6px;}
 }
+.overlay[hidden]{display:none !important;}
