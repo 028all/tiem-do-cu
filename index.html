@@ -82,8 +82,12 @@
 
   <footer class="footer">
     <div class="wrap footer__inner">
-      <span id="footName">tiệm đồ cũ</span>
-      <span class="footer__muted">Hàng đã qua sử dụng · mô tả đúng tình trạng · không nhận đổi trả khi đã chốt</span>
+      <span class="footer__brand">
+        <span class="fdot fdot--red"></span>
+        <span class="fdot fdot--blue"></span>
+        <span id="footName">PAST OR PASS</span>
+      </span>
+      <span class="footer__muted">Sản phẩm đã hoặc chưa qua sử dụng, hãy xem và cân nhắc trước khi mua, không nhận đổi trả khi đã nhận hàng</span>
     </div>
   </footer>
 
@@ -175,5 +179,24 @@
   <script src="config.js"></script>
   <script src="products.js"></script>
   <script src="assets/app.js"></script>
+  <script>
+    // Nền chấm bi 2 màu (đỏ/xanh) rải ngẫu nhiên, thưa cho thoáng.
+    (function () {
+      var layer = document.createElement("div");
+      layer.id = "bg-dots";
+      var COUNT = 18;                         // số chấm — tăng/giảm tùy ý
+      for (var i = 0; i < COUNT; i++) {
+        var d = document.createElement("span");
+        var size = (5 + Math.random() * 4).toFixed(1);   // 5–9px
+        d.style.width = d.style.height = size + "px";
+        d.style.left = (Math.random() * 96).toFixed(2) + "%";
+        d.style.top = (Math.random() * 94).toFixed(2) + "%";
+        d.style.background = Math.random() < 0.5
+          ? "var(--red)" : "var(--blue)";
+        layer.appendChild(d);
+      }
+      document.body.appendChild(layer);
+    })();
+  </script>
 </body>
 </html>
