@@ -45,7 +45,7 @@
   <div class="filterbar" id="filterbar">
     <div class="wrap filterbar__inner">
       <button class="filter-toggle" id="filterToggle" aria-expanded="false">
-        <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="17" x2="14" y2="17"/></svg>
+        <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><circle cx="10" cy="9" r="2"/><circle cx="15" cy="15" r="2"/></svg>
         Lọc
       </button>
       <div class="filterbar__chips" id="quickChips"><!-- chips danh mục đổ ra bằng JS --></div>
@@ -180,22 +180,73 @@
   <script src="products.js"></script>
   <script src="assets/app.js"></script>
   <script>
-    // Nền chấm bi 2 màu (đỏ/xanh) rải ngẫu nhiên, thưa cho thoáng.
+    // ===== Nền chấm bi 2 màu: nhỏ, rải đều, KHÔNG chồng lên nhau =====
     (function () {
       var layer = document.createElement("div");
       layer.id = "bg-dots";
-      var COUNT = 18;                         // số chấm — tăng/giảm tùy ý
-      for (var i = 0; i < COUNT; i++) {
-        var d = document.createElement("span");
-        var size = (50 + Math.random() * 40).toFixed(1);   // 50–90px (to gấp ~10 lần)
-        d.style.width = d.style.height = size + "px";
-        d.style.left = (Math.random() * 96).toFixed(2) + "%";
-        d.style.top = (Math.random() * 94).toFixed(2) + "%";
-        d.style.background = Math.random() < 0.5
-          ? "var(--red)" : "var(--blue)";
-        layer.appendChild(d);
-      }
       document.body.appendChild(layer);
+
+      function build() {
+        layer.innerHTML = "";
+        var W = window.innerWidth, H = window.innerHeight;
+        var mobile = W <= 560;
+        var minS = mobile ? 9 : 14;          // đường kính nhỏ nhất (px)
+        var maxS = mobile ? 14 : 22;         // đường kính lớn nhất (px)
+        var minDist = mobile ? 110 : 150;    // khoảng cách tối thiểu giữa 2 tâm -> không chồng, thoáng
+        var target = mobile ? 6 : 14;        // số chấm mong muốn
+        var placed = [];
+        var tries = 0, maxTries = target * 60;
+
+        while (placed.length < target && tries < maxTries) {
+          tries++;
+          var size = minS + Math.random() * (maxS - minS);
+          var r = size / 2;
+          var x = r + Math.random() * (W - size);
+          var y = r + Math.random() * (H - size);
+          var ok = true;
+          for (var i = 0; i < placed.length; i++) {
+            var dx = x - placed[i].x, dy = y - placed[i].y;
+            if (Math.sqrt(dx * dx + dy * dy) < minDist) { ok = false; break; }
+          }
+          if (!ok) continue;
+          placed.push({ x: x, y: y });
+          var d = document.createElement("span");
+          d.style.width = d.style.height = size.toFixed(1) + "px";
+          d.style.left = (x - r).toFixed(1) + "px";
+          d.style.top = (y - r).toFixed(1) + "px";
+          d.style.background = Math.random() < 0.5 ? "var(--red)" : "var(--blue)";
+          layer.appendChild(d);
+        }
+      }
+      build();
+      var rt;
+      window.addEventListener("resize", function () {
+        clearTimeout(rt); rt = setTimeout(build, 200);
+      });
+    })();
+
+    // ===== Mobile: ô tìm kiếm chỉ là icon, bấm mới bung ra =====
+    (function () {
+      var header = document.getElementById("header");
+      var box = document.querySelector(".header__search");
+      var icon = box.querySelector(".icon");
+      var input = document.getElementById("search");
+      function isMobile() { return window.matchMedia("(max-width:560px)").matches; }
+
+      function closeSearch() {
+        header.classList.remove("searching");
+        if (input.value) { input.value = ""; input.dispatchEvent(new Event("input", { bubbles: true })); }
+        input.blur();
+      }
+      icon.addEventListener("click", function (e) {
+        if (!isMobile()) return;            // desktop: ô luôn hiện
+        e.preventDefault();
+        if (header.classList.contains("searching")) { closeSearch(); }
+        else { header.classList.add("searching"); setTimeout(function () { input.focus(); }, 30); }
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && header.classList.contains("searching")) closeSearch();
+      });
     })();
   </script>
 </body>
