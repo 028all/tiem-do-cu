@@ -66,6 +66,14 @@ a{color:inherit;text-decoration:none;}
 .brand{display:flex;align-items:center;margin-right:auto;}
 .brand__logo{height:40px;width:auto;display:block;}
 .brand__name,.brand__tag{display:none;}
+.header.searching .brand{display:none;}
+
+/* desktop: logo ra giữa header + to hơn, icon dồn về phải */
+@media(min-width:561px){
+  .header__inner{position:relative;justify-content:flex-end;}
+  .brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;}
+  .brand__logo{height:56px;}
+}
 
 .header__search{
   display:flex;align-items:center;gap:8px;
