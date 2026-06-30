@@ -4,15 +4,15 @@
 
 window.SHOP_CONFIG = {
   // Tên hiển thị trên logo (viết thường cho giống phong cách tối giản)
-  name: "tiệm đồ cũ",
+  name: "PAST OR PASS",
 
   // Câu mô tả ngắn dưới logo (để trống "" nếu không muốn hiện)
-  tagline: "đồ si tuyển · ship toàn quốc",
+  tagline: "CŨ NGƯỜI · THÀNH CỦA NGƯỜI TA",
 
   // Liên hệ chốt đơn (hiện ở màn hình thanh toán)
   contact: {
-    zalo: "0900000000",        // số Zalo / điện thoại
-    instagram: "",             // ví dụ "tiemdocu" (không cần @), để trống nếu không có
+    zalo: "0902 35 2108",        // số Zalo / điện thoại
+    instagram: "nnhanlee",             // ví dụ "tiemdocu" (không cần @), để trống nếu không có
   },
 
   // ---- THANH TOÁN: CHUYỂN KHOẢN QR (VietQR) ----
@@ -23,18 +23,18 @@ window.SHOP_CONFIG = {
     // Vietcombank: "VCB" | Techcombank: "TCB" | MB Bank: "MB" | ACB: "ACB"
     // BIDV: "BIDV" | VietinBank: "ICB" | VPBank: "VPB" | Sacombank: "STB"
     // Agribank: "VBA" | TPBank: "TPB" | OCB: "OCB" | VIB: "VIB"
-    bankCode: "VCB",
-    accountNumber: "0123456789",
-    accountName: "NGUYEN VAN A",   // viết HOA không dấu
+    bankCode: "TECHCOMBANK",
+    accountNumber: "2250686868",
+    accountName: "LE DUC MINH NHAN",   // viết HOA không dấu
   },
 
   // ---- MOMO (tùy chọn) ----
   // Số điện thoại đăng ký MoMo. Để trống "" nếu không dùng.
   momo: {
-    phone: "0900000000",
-    name: "NGUYEN VAN A",
+    phone: "0902352108",
+    name: "LE DUC MINH NHAN",
   },
 
   // Phí ship cố định (đồng). Đặt 0 nếu freeship hoặc tính sau.
-  shippingFee: 25000,
+  shippingFee: 35000,
 };
