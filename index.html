@@ -18,7 +18,7 @@
 
   <!-- THÔNG BÁO TRÊN CÙNG -->
   <div class="topbar" id="topbar">
-    <span>đồ si tuyển · ship toàn quốc · thanh toán quét mã trong 5 giây</span>
+    <span>Chưa có nhận ký gửi - thanh toán quét mã trong 5 giây</span>
   </div>
 
   <!-- HEADER -->
@@ -225,13 +225,12 @@
       });
     })();
 
-    // ===== Mobile: ô tìm kiếm chỉ là icon, bấm mới bung ra =====
+    // ===== Ô tìm kiếm: chỉ là icon, bấm mới bung ra (cả desktop & mobile) =====
     (function () {
       var header = document.getElementById("header");
       var box = document.querySelector(".header__search");
       var icon = box.querySelector(".icon");
       var input = document.getElementById("search");
-      function isMobile() { return window.matchMedia("(max-width:560px)").matches; }
 
       function closeSearch() {
         header.classList.remove("searching");
@@ -239,7 +238,6 @@
         input.blur();
       }
       icon.addEventListener("click", function (e) {
-        if (!isMobile()) return;            // desktop: ô luôn hiện
         e.preventDefault();
         if (header.classList.contains("searching")) { closeSearch(); }
         else { header.classList.add("searching"); setTimeout(function () { input.focus(); }, 30); }
